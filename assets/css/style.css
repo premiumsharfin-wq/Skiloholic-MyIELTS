@@ -1,0 +1,93 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.navbar {
+    box-shadow: 0 2px 4px rgba(0,0,0,.1);
+}
+
+.card {
+    border: none;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    border-radius: 8px;
+    transition: transform 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.btn-primary {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+.btn-primary:hover {
+    background-color: #004494;
+    border-color: #004494;
+}
+
+.jumbotron {
+    background: #e9ecef;
+}
+
+.footer {
+    background-color: #343a40;
+    color: #adb5bd;
+}
+
+.footer a {
+    color: #adb5bd;
+    transition: color 0.2s;
+}
+
+.footer a:hover {
+    color: #fff;
+}
+
+/* Sidebar for Student Dashboard */
+.list-group-item {
+    border: none;
+    border-bottom: 1px solid #eee;
+}
+
+.list-group-item.active {
+    background-color: #0056b3;
+    border-color: #0056b3;
+}
+
+.list-group-item:first-child {
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.list-group-item:last-child {
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+/* Form Controls */
+.form-control:focus {
+    border-color: #80bdff;
+    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+}
+
+/* Test Interface */
+.question-text {
+    line-height: 1.6;
+    font-size: 1.1rem;
+    color: #444;
+}
+
+/* Utilities */
+.text-justify {
+    text-align: justify;
+}
