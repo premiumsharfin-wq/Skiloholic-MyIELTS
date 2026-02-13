@@ -3,9 +3,15 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
 require __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__ . '/../includes/email_template.php';
 
-function sendEmail($to, $subject, $body) {
+function sendEmail($to, $subject, $content, $is_content_html = true) {
     $mail = new PHPMailer(true);
+
+    // If body is already HTML, assume it's just content and wrap it.
+    // However, some existing calls might pass full HTML.
+    // Let's wrap the content in our template always, assuming the caller passes the main message body.
+    $body = getEmailTemplate($subject, $content);
 
     try {
         //Server settings
@@ -25,6 +31,7 @@ function sendEmail($to, $subject, $body) {
         $mail->isHTML(true);                                  // Set email format to HTML
         $mail->Subject = $subject;
         $mail->Body    = $body;
+        $mail->AltBody = strip_tags($content);
 
         $mail->send();
         return true;

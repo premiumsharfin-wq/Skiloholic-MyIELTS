@@ -25,27 +25,104 @@ if (!$test) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IELTS Writing Test - <?php echo htmlspecialchars($test['title']); ?></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body { height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
-        .test-header { background: #eee; padding: 10px; border-bottom: 1px solid #ccc; }
+        body { height: 100vh; overflow: hidden; display: flex; flex-direction: column; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f8f9fa; }
+
+        /* IELTS Header Style */
+        .test-header {
+            background: #111;
+            color: #fff;
+            padding: 15px 20px;
+            border-bottom: 3px solid #d32f2f;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        .test-info { font-size: 0.9rem; letter-spacing: 0.5px; }
+        .test-info strong { color: #ccc; }
+
+        #timer {
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: 700;
+            font-size: 1.8rem;
+            color: #fff;
+            background: #333;
+            padding: 5px 15px;
+            border-radius: 5px;
+            border: 1px solid #555;
+        }
+
+        .timer-warning { color: #ffeb3b !important; animation: blink 1s infinite; }
+        .timer-danger { color: #ff5252 !important; animation: blink 0.5s infinite; }
+
+        @keyframes blink { 50% { opacity: 0.5; } }
+
         .test-body { flex: 1; display: flex; overflow: hidden; }
-        .pane { flex: 1; padding: 20px; overflow-y: auto; }
-        .pane-left { background: #f9f9f9; border-right: 1px solid #ddd; }
-        .pane-right { background: #fff; }
-        textarea { width: 100%; height: 90%; border: 1px solid #ccc; padding: 10px; resize: none; font-family: Arial, sans-serif; font-size: 14px; }
-        .word-count { text-align: right; margin-top: 5px; font-weight: bold; }
+
+        /* Panes */
+        .pane { flex: 1; padding: 30px; overflow-y: auto; transition: all 0.3s; }
+        .pane-left { background: #fff; border-right: 5px solid #e9ecef; }
+        .pane-right { background: #fdfdfd; }
+
+        .question-text { font-size: 1.05rem; line-height: 1.7; color: #333; }
+
+        textarea {
+            width: 100%;
+            height: 90%;
+            border: 2px solid #ced4da;
+            border-radius: 8px;
+            padding: 15px;
+            resize: none;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1.1rem;
+            line-height: 1.5;
+            background-color: #fff;
+            color: #000;
+            transition: border-color 0.3s;
+        }
+
+        textarea:focus { outline: none; border-color: #007bff; box-shadow: 0 0 8px rgba(0,123,255,0.2); }
+
+        .word-count {
+            text-align: right;
+            margin-top: 10px;
+            font-weight: 600;
+            color: #666;
+            background: #e9ecef;
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 20px;
+            float: right;
+            font-size: 0.9rem;
+        }
+
+        .btn-exit {
+            background-color: transparent;
+            border: 1px solid #666;
+            color: #bbb;
+            transition: all 0.3s;
+        }
+        .btn-exit:hover {
+            border-color: #ff5252;
+            color: #ff5252;
+        }
     </style>
 </head>
 <body>
 
 <div class="test-header d-flex justify-content-between align-items-center">
-    <div>
-        <strong>Candidate:</strong> <?php echo htmlspecialchars($_SESSION['user_name']); ?> |
-        <strong>Test:</strong> <?php echo htmlspecialchars($test['title']); ?>
+    <div class="test-info">
+        <i class="fas fa-user-circle me-2"></i> <?php echo htmlspecialchars($_SESSION['user_name']); ?>
+        <span class="mx-3">|</span>
+        <i class="fas fa-file-alt me-2"></i> <?php echo htmlspecialchars($test['title']); ?>
     </div>
-    <div class="text-danger fw-bold fs-4" id="timer">60:00</div>
+
+    <div id="timer">60:00</div>
+
     <div>
-        <button class="btn btn-danger btn-sm" onclick="if(confirm('Are you sure you want to exit?')) window.location.href='mock_test.php'">Exit</button>
+        <button class="btn btn-sm btn-exit px-3" onclick="if(confirm('Are you sure you want to exit? Your progress will be lost.')) window.location.href='mock_test.php'">
+            <i class="fas fa-sign-out-alt me-1"></i> Exit Test
+        </button>
     </div>
 </div>
 
@@ -149,6 +226,15 @@ if (!$test) {
         seconds = seconds < 10 ? '0' + seconds : seconds;
 
         timerElement.innerText = `${minutes}:${seconds}`;
+
+        // Visual Cues
+        if (timeLeft < 600) { // Less than 10 mins
+             timerElement.classList.add('timer-warning');
+        }
+        if (timeLeft < 60) { // Less than 1 min
+             timerElement.classList.remove('timer-warning');
+             timerElement.classList.add('timer-danger');
+        }
 
         if (timeLeft <= 0) {
             clearInterval(timerInterval);

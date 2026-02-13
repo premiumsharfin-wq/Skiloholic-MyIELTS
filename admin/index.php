@@ -34,59 +34,72 @@ usort($recent, function($a, $b) {
 
 <h2 class="mb-4">Admin Dashboard</h2>
 
-<div class="row mb-4">
-    <div class="col-md-3">
-        <div class="card text-white bg-primary h-100">
+<div class="row mb-4 g-4">
+    <div class="col-xl-3 col-md-6">
+        <div class="card text-white bg-primary h-100 shadow">
             <div class="card-body">
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
-                        <h6 class="card-title">Total Users</h6>
-                        <h2 class="mb-0"><?php echo $stats['users']; ?></h2>
+                        <h6 class="card-title text-uppercase text-white-50 small fw-bold">Total Users</h6>
+                        <h2 class="mb-0 display-6 fw-bold"><?php echo $stats['users']; ?></h2>
                     </div>
-                    <i class="fas fa-users fa-2x opacity-50"></i>
+                    <i class="fas fa-users fa-3x opacity-25"></i>
                 </div>
             </div>
-            <a href="users.php" class="card-footer text-white small stretched-link">View Details <i class="fas fa-arrow-right float-end"></i></a>
+            <div class="card-footer d-flex align-items-center justify-content-between small">
+                <a class="text-white stretched-link text-decoration-none" href="users.php">View Details</a>
+                <div class="text-white"><i class="fas fa-angle-right"></i></div>
+            </div>
         </div>
     </div>
-    <div class="col-md-3">
-        <div class="card text-white bg-success h-100">
+    <div class="col-xl-3 col-md-6">
+        <div class="card text-white bg-success h-100 shadow">
             <div class="card-body">
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
-                        <h6 class="card-title">Total Tests</h6>
-                        <h2 class="mb-0"><?php echo $stats['tests']; ?></h2>
+                        <h6 class="card-title text-uppercase text-white-50 small fw-bold">Total Tests</h6>
+                        <h2 class="mb-0 display-6 fw-bold"><?php echo $stats['tests']; ?></h2>
                     </div>
-                    <i class="fas fa-file-alt fa-2x opacity-50"></i>
+                    <i class="fas fa-file-alt fa-3x opacity-25"></i>
                 </div>
             </div>
-            <a href="tests.php" class="card-footer text-white small stretched-link">Manage Tests <i class="fas fa-arrow-right float-end"></i></a>
+            <div class="card-footer d-flex align-items-center justify-content-between small">
+                <a class="text-white stretched-link text-decoration-none" href="tests.php">Manage Tests</a>
+                <div class="text-white"><i class="fas fa-angle-right"></i></div>
+            </div>
         </div>
     </div>
-    <div class="col-md-3">
-        <div class="card text-white bg-warning h-100">
+    <div class="col-xl-3 col-md-6">
+        <div class="card text-white bg-warning h-100 shadow">
             <div class="card-body">
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
-                        <h6 class="card-title">Pending Reviews</h6>
-                        <h2 class="mb-0"><?php echo $stats['pending']; ?></h2>
+                        <h6 class="card-title text-uppercase text-white-50 small fw-bold">Pending Reviews</h6>
+                        <h2 class="mb-0 display-6 fw-bold"><?php echo $stats['pending']; ?></h2>
                     </div>
-                    <i class="fas fa-clock fa-2x opacity-50"></i>
+                    <i class="fas fa-clock fa-3x opacity-25"></i>
                 </div>
             </div>
-            <a href="evaluation.php" class="card-footer text-white small stretched-link">Start Evaluation <i class="fas fa-arrow-right float-end"></i></a>
+            <div class="card-footer d-flex align-items-center justify-content-between small">
+                <a class="text-white stretched-link text-decoration-none" href="evaluation.php">Start Evaluation</a>
+                <div class="text-white"><i class="fas fa-angle-right"></i></div>
+            </div>
         </div>
     </div>
-    <div class="col-md-3">
-        <div class="card text-white bg-info h-100">
+    <div class="col-xl-3 col-md-6">
+        <div class="card text-white bg-info h-100 shadow">
             <div class="card-body">
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
-                        <h6 class="card-title">Total Submissions</h6>
-                        <h2 class="mb-0"><?php echo $stats['submissions']; ?></h2>
+                        <h6 class="card-title text-uppercase text-white-50 small fw-bold">Total Submissions</h6>
+                        <h2 class="mb-0 display-6 fw-bold"><?php echo $stats['submissions']; ?></h2>
                     </div>
-                    <i class="fas fa-tasks fa-2x opacity-50"></i>
+                    <i class="fas fa-tasks fa-3x opacity-25"></i>
                 </div>
+            </div>
+             <div class="card-footer d-flex align-items-center justify-content-between small">
+                <a class="text-white stretched-link text-decoration-none" href="evaluation.php">View All</a>
+                <div class="text-white"><i class="fas fa-angle-right"></i></div>
             </div>
         </div>
     </div>
