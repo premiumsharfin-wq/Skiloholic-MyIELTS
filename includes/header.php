@@ -45,17 +45,17 @@ if (function_exists('isAdmin') && !isAdmin() && isset($pdo)) {
 </head>
 <body class="d-flex flex-column min-vh-100">
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark sticky-top">
     <div class="container">
-        <a class="navbar-brand" href="<?php echo $prefix; ?>index.php">
-            <img src="<?php echo $prefix; ?>assets/images/logo.png" alt="MyIELTS Logo" height="40" class="d-inline-block align-text-top me-2">
-            MyIELTS
+        <a class="navbar-brand d-flex align-items-center" href="<?php echo $prefix; ?>index.php">
+            <img src="<?php echo $prefix; ?>assets/images/logo.png" alt="MyIELTS Logo" height="50" class="me-2">
+            <span class="fs-4 fw-bold">MyIELTS</span>
         </a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
                 <li class="nav-item">
                     <a class="nav-link" href="<?php echo $prefix; ?>index.php">Home</a>
                 </li>

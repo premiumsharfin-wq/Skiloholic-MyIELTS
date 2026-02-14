@@ -57,12 +57,12 @@ if (!$test) {
 
         @keyframes blink { 50% { opacity: 0.5; } }
 
-        .test-body { flex: 1; display: flex; overflow: hidden; }
+        .test-body { flex: 1; display: flex; overflow: hidden; background-color: #e5e5e5; }
 
         /* Panes */
-        .pane { flex: 1; padding: 30px; overflow-y: auto; transition: all 0.3s; }
-        .pane-left { background: #fff; border-right: 5px solid #e9ecef; }
-        .pane-right { background: #fdfdfd; }
+        .pane { flex: 1; padding: 20px; overflow-y: auto; height: 100%; }
+        .pane-left { background: #f8f9fa; border-right: 2px solid #ccc; }
+        .pane-right { background: #fff; padding-right: 20px; }
 
         .question-text { font-size: 1.05rem; line-height: 1.7; color: #333; }
 
@@ -192,8 +192,8 @@ if (!$test) {
         </div>
     <?php endif; ?>
 
-    <div class="fixed-bottom bg-light p-2 border-top text-end">
-        <button type="submit" class="btn btn-success px-4">Submit Test</button>
+    <div class="bg-light p-3 border-top text-end" style="background-color: #f0f0f0;">
+        <button type="submit" class="btn btn-success px-5 fw-bold" onclick="return confirm('Are you sure you want to submit?');">Submit Test</button>
     </div>
 </form>
 

@@ -2,6 +2,7 @@
 require_once '../config/db.php';
 require_once '../includes/auth.php';
 require_once '../includes/functions.php';
+require_once '../config/mail.php';
 
 requireLogin();
 
@@ -30,6 +31,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt = $pdo->prepare("INSERT INTO test_results (user_id, test_id, type, submission_data, status) VALUES (?, ?, ?, ?, 'pending')");
         $stmt->execute([$user_id, $test_id, $test_type, $submission_data]);
         $result_id = $pdo->lastInsertId();
+
+        // Notify Admins
+        $stmt = $pdo->query("SELECT email FROM users WHERE role = 'admin'");
+        $admins = $stmt->fetchAll(PDO::FETCH_COLUMN);
+
+        $subject = "New Test Submission - " . $_SESSION['user_name'];
+        $body = "A new mock test has been submitted by <strong>" . htmlspecialchars($_SESSION['user_name']) . "</strong>.<br>
+                 Test Type: $test_type<br>
+                 Date: " . date('Y-m-d H:i:s') . "<br><br>
+                 Please login to the Admin Panel to evaluate it.";
+
+        foreach ($admins as $admin_email) {
+            sendEmail($admin_email, $subject, $body);
+        }
 
         flash('success', "Test submitted successfully! Evaluation pending.");
         redirect("result.php?id=$result_id");

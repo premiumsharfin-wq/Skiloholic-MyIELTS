@@ -2,6 +2,7 @@
 require_once '../config/db.php';
 require_once '../includes/auth.php';
 require_once '../includes/functions.php';
+require_once '../config/mail.php';
 
 requireLogin();
 
@@ -15,6 +16,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt = $pdo->prepare("INSERT INTO custom_evaluations (user_id, question, answer, status) VALUES (?, ?, ?, 'pending')");
         $stmt->execute([$_SESSION['user_id'], $question, $answer]);
         $id = $pdo->lastInsertId();
+
+        // Notify Admins
+        $stmt = $pdo->query("SELECT email FROM users WHERE role = 'admin'");
+        $admins = $stmt->fetchAll(PDO::FETCH_COLUMN);
+
+        $subject = "New Custom Evaluation - " . $_SESSION['user_name'];
+        $body = "A new custom evaluation has been submitted by <strong>" . htmlspecialchars($_SESSION['user_name']) . "</strong>.<br>
+                 Date: " . date('Y-m-d H:i:s') . "<br><br>
+                 Please login to the Admin Panel to evaluate it.";
+
+        foreach ($admins as $admin_email) {
+            sendEmail($admin_email, $subject, $body);
+        }
 
         flash('success', "Custom evaluation submitted! Our experts will review it shortly.");
         redirect("result.php?id=$id&type=custom");
